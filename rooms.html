@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Booking | Rooms</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header id="header"></header>
+
+  <section class="page-head">
+    <h1>Qolalkeenna</h1>
+    <p>Raadi oo dooro qolka kuu qalma</p>
+  </section>
+
+  <div class="container">
+    <div class="filter-box">
+      <div class="field">
+        <label for="checkIn">Gelitaan</label>
+        <input type="date" id="checkIn">
+      </div>
+      <div class="field">
+        <label for="checkOut">Ka bixitaan</label>
+        <input type="date" id="checkOut">
+      </div>
+      <div class="field">
+        <label for="guests">Dadka</label>
+        <select id="guests">
+          <option value="1">1 qof</option>
+          <option value="2">2 qof</option>
+          <option value="3">3 qof</option>
+          <option value="4">4 qof</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="type">Nooca</label>
+        <select id="type">
+          <option value="all">Dhammaan</option>
+          <option value="Single">Single</option>
+          <option value="Double">Double</option>
+          <option value="Suite">Suite</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="maxPrice">Qiimo ugu badan: <strong id="priceLabel">$300</strong></label>
+        <input type="range" id="maxPrice" min="20" max="300" step="10" value="300">
+      </div>
+      <button type="button" class="btn btn-gray" id="resetBtn">Tirtir filter</button>
+    </div>
+
+    <p class="result-count" id="resultCount"></p>
+    <div class="room-grid" id="roomGrid"></div>
+  </div>
+
+  <footer id="footer"></footer>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/rooms.js"></script>
+</body>
+</html>

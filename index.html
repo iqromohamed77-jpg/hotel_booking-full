@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Booking | Home</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header id="header"></header>
+
+  <section class="hero">
+    <h1>Hel qolka ku habboon safarkaaga</h1>
+    <p>Qolal raaxo leh, qiimo fiican, booking degdeg ah.</p>
+  </section>
+
+  <form class="search-box" id="searchForm">
+    <div class="field">
+      <label for="checkIn">Gelitaan</label>
+      <input type="date" id="checkIn" required>
+    </div>
+    <div class="field">
+      <label for="checkOut">Ka bixitaan</label>
+      <input type="date" id="checkOut" required>
+    </div>
+    <div class="field">
+      <label for="guests">Dadka</label>
+      <select id="guests">
+        <option value="1">1 qof</option>
+        <option value="2">2 qof</option>
+        <option value="3">3 qof</option>
+        <option value="4">4 qof</option>
+      </select>
+    </div>
+    <button type="submit" class="btn">Raadi</button>
+  </form>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Qolalkeenna</h2>
+      <p class="section-sub">Dooro qolka kuu qalma</p>
+      <div class="room-grid" id="roomGrid"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Maxaad noo doortaa?</h2>
+      <p class="section-sub">Adeegga ugu fiican</p>
+      <div class="features">
+        <div class="feature"><div class="icon">💰</div><h3>Qiimo fiican</h3><p>Qiimo la awoodi karo</p></div>
+        <div class="feature"><div class="icon">⚡</div><h3>Booking degdeg</h3><p>Dhowr daqiiqo gudahood</p></div>
+        <div class="feature"><div class="icon">🛎️</div><h3>Adeeg 24/7</h3><p>Waan diyaar nahay mar kasta</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer"></footer>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    const grid = document.getElementById("roomGrid");
+    grid.innerHTML = DB.get("rooms").map(room => `
+      <div class="room-card">
+        <img src="${room.image}" alt="${room.name}">
+        <div class="info">
+          <h3>${room.name}</h3>
+          <p class="desc">${room.description}</p>
+          <div class="tags">
+            ${room.amenities.map(a => `<span class="tag">${a}</span>`).join("")}
+          </div>
+          <div class="bottom">
+            <span class="price">$${room.price} <small>/ habeen</small></span>
+            <a href="room-details.html?id=${room.id}" class="btn">Arag</a>
+          </div>
+        </div>
+      </div>
+    `).join("");
+
+    const today = new Date().toISOString().split("T")[0];
+    const checkIn = document.getElementById("checkIn");
+    const checkOut = document.getElementById("checkOut");
+    checkIn.min = today;
+    checkOut.min = today;
+
+    checkIn.addEventListener("change", () => {
+      checkOut.min = checkIn.value;
+      if (checkOut.value && checkOut.value <= checkIn.value) checkOut.value = "";
+    });
+
+    document.getElementById("searchForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const params = new URLSearchParams({
+        checkIn: checkIn.value,
+        checkOut: checkOut.value,
+        guests: document.getElementById("guests").value
+      });
+      window.location.href = "rooms.html?" + params.toString();
+    });
+  </script>
+</body>
+</html>

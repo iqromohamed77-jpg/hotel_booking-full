@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Booking | Admin</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="header"></header>
+
+  <section class="page-head" style="padding-bottom:40px">
+    <h1>Admin Dashboard</h1>
+  </section>
+
+  <div class="container">
+    <div class="stats" id="stats"></div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="bookings">Bookings</button>
+      <button class="tab" data-tab="rooms">Qolalka</button>
+    </div>
+
+    <!-- Bookings -->
+    <div id="tab-bookings" class="tab-panel">
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr><th>#</th><th>Mehmaan</th><th>Qol</th><th>Taariikho</th><th>Qiimo</th><th>Xaalad</th><th>Ficil</th></tr>
+          </thead>
+          <tbody id="bookingRows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Rooms -->
+    <div id="tab-rooms" class="tab-panel" hidden>
+      <form class="form-card room-form" id="roomForm">
+        <h2 id="formTitle">Ku dar qol cusub</h2>
+        <input type="hidden" id="roomId">
+        <div class="grid-2">
+          <div class="field"><label for="rName">Magaca</label><input type="text" id="rName" required></div>
+          <div class="field">
+            <label for="rType">Nooca</label>
+            <select id="rType"><option>Single</option><option>Double</option><option>Suite</option></select>
+          </div>
+          <div class="field"><label for="rPrice">Qiimo ($/habeen)</label><input type="number" id="rPrice" min="1" required></div>
+          <div class="field"><label for="rCap">Dadka ugu badan</label><input type="number" id="rCap" min="1" max="10" required></div>
+        </div>
+        <div class="field"><label for="rDesc">Sharaxaad</label><input type="text" id="rDesc" required></div>
+        <div class="field"><label for="rAmen">Adeegyada (kala saar koma: WiFi, AC, TV)</label><input type="text" id="rAmen"></div>
+        <div class="field"><label for="rImg">Sawir (URL)</label><input type="url" id="rImg" placeholder="https://..."></div>
+        <p class="error" id="formError"></p>
+        <button class="btn" type="submit" id="saveBtn">Kaydi</button>
+        <button class="btn btn-gray" type="button" id="cancelEdit" hidden>Jooji wax-ka-beddelka</button>
+      </form>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Magac</th><th>Nooc</th><th>Qiimo</th><th>Dadka</th><th>Ficil</th></tr></thead>
+          <tbody id="roomRows"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer"></footer>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

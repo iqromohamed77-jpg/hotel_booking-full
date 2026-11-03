@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Booking | Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="header"></header>
+
+  <div class="container">
+    <div class="auth-card">
+      <h2>Gal (Login)</h2>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password">
+      </div>
+      <p class="error" id="error"></p>
+      <button class="btn btn-block" id="loginBtn">Gal</button>
+      <p class="auth-switch">Akoon ma lihid? <a href="register.html"><u>Is-diiwaangeli</u></a></p>
+      <p class="hint">Admin demo: admin@hotel.com / admin123</p>
+    </div>
+  </div>
+
+  <footer id="footer"></footer>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    const next = Auth.safeNext(new URLSearchParams(location.search).get("next"));
+    if (Auth.current()) location.href = next;
+
+    function doLogin() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const error = document.getElementById("error");
+      if (!email || !password) { error.textContent = "Buuxi email iyo password."; return; }
+      const u = Auth.login(email, password);
+      if (!u) { error.textContent = "Email ama password waa khalad."; return; }
+      location.href = u.role === "admin" && next === "index.html" ? "admin.html" : next;
+    }
+    document.getElementById("loginBtn").addEventListener("click", doLogin);
+    document.getElementById("password").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
+  </script>
+</body>
+</html>
